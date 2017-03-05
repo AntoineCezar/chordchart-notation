@@ -1,0 +1,7 @@
+[run]
+branch = True
+
+source = chordchart_notation
+
+[report]
+skip_covered = True
