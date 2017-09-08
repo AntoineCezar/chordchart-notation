@@ -1,70 +1,18 @@
-style = '''
-.chordchart {
-    width: 80em;
-    margin: auto;
-}
-.chordchart > * {
-    margin: auto;
-}
-.chordchart .title {
-    text-align: center;
-    padding: .2em .8em;
-}
-.chordchart .composer {
-    text-align: right;
-    padding: .2em .8em;
-}
-.chordchart table {
-    font-size: 2em;
-    width: 100%;
-}
-.chordchart .barline {
-    font-size: 2em;
-    text-align: right;
-}
-.chordchart :first-child.barline {
-    text-align: left;
-}
-.chordchart .chord {
-    padding: 0 .5em;
-}
-.chordchart .chord-continuation {
-    font-size: 1.5em;
-    padding: 0 .5em;
-}
-.segno {
-    font-size: 1.5em;
-}
-.alternative {
-    font-size: .6em;
-    border-top: solid 1px black;
-    border-left: solid 2px black;
-}
-.alternative > * {
-    padding: .3em;
-}
-'''
+import pkg_resources
 
-template = '''
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width" />
-        <title>{head_title}</title>
-        <style>{style}</style>
-    </head>
-    <body>
-        <div class="chordchart">
-            <h1 class="title">{title}</h1>
-            <h2 class="composer">{composer}</h2>
-            <table class="chordchart">
-                {parts}
-            </table>
-        </section>
-    </body>
-</html>
-'''
+
+def read_resource(relative_path):
+    absolute_path = pkg_resources.resource_filename('chordchart_notation',
+                                                    relative_path)
+
+    with open(absolute_path, 'r') as fd:
+        content = fd.read()
+
+    return content
+
+
+template = read_resource('render/html_template.html')
+style = read_resource('render/html_style.css')
 
 
 class HtmlBuilder:

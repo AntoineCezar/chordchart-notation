@@ -1,0 +1,44 @@
+.chordchart {
+    width: 80em;
+    margin: auto;
+}
+.chordchart > * {
+    margin: auto;
+}
+.chordchart .title {
+    text-align: center;
+    padding: .2em .8em;
+}
+.chordchart .composer {
+    text-align: right;
+    padding: .2em .8em;
+}
+.chordchart table {
+    font-size: 2em;
+    width: 100%;
+}
+.chordchart .barline {
+    font-size: 2em;
+    text-align: right;
+}
+.chordchart :first-child.barline {
+    text-align: left;
+}
+.chordchart .chord {
+    padding: 0 .5em;
+}
+.chordchart .chord-continuation {
+    font-size: 1.5em;
+    padding: 0 .5em;
+}
+.segno {
+    font-size: 1.5em;
+}
+.alternative {
+    font-size: .6em;
+    border-top: solid 1px black;
+    border-left: solid 2px black;
+}
+.alternative > * {
+    padding: .3em;
+}
