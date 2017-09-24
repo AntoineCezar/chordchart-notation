@@ -28,6 +28,9 @@ class PartDirector(Visitor):
         self._builder = builder
         self._measure_count = 0
 
+    def _visit_label(self, node):
+        self._builder.label(node.value)
+
     def _visit_barline(self, node):
         with self._builder.barline() as builder:
             visitor = BarlineDirector(builder)

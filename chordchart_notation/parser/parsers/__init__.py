@@ -9,10 +9,12 @@ from .parser import Parser
 from .separated_by import SeparatedBy
 from .skip import Skip
 from .string import String
+from .any_of import AnyOf
 
 
 __all__ = (
     'Add',
+    'AnyOf',
     'CreateNode',
     'Many',
     'Maybe',

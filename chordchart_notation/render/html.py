@@ -54,6 +54,7 @@ class HtmlBuilder:
 class PartBuilder:
 
     def __init__(self):
+        self._label = None
         self._lines = []
         self._new_line()
 
@@ -61,12 +62,18 @@ class PartBuilder:
         return self._lines[-1]
 
     def get_result(self):
-        result = ''
+        if self._label:
+            result = f'<td><div class="label">{self._label}</div></td>'
+        else:
+            result = '<td></td>'
 
         for line in self._lines:
             result += line.get_result()
 
         return result
+
+    def label(self, value):
+        self._label = value
 
     def barline(self):
         self._barline = self._last_line().barline()
@@ -101,9 +108,10 @@ class PartLine:
             base_line += element.get_base_line()
 
         lines = [
-            f'<tr>{mark_line}</tr>',
-            f'<tr>{alt_line}</tr>',
-            f'<tr>{base_line}</tr>'
+            f'<tr class="marks">{mark_line}</tr>',
+            f'<tr class="alts">{alt_line}</tr>',
+            f'<tr class="base">{base_line}</tr>'
+            f'<tr class="spacer"></tr>'
         ]
 
         return '\n'.join(lines)
@@ -270,7 +278,7 @@ class AlternativeBuilder:
                     f'<span>{self._value}</span>'
                     '</td>')
 
-        return ''
+        return f'<td colspan="{span}"></td>'
 
     def build_number(self, value):
         self._value = f'{value}.'
