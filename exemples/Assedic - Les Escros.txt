@@ -1,0 +1,15 @@
+Title: Assedic
+Composer: Les Escros
+
+P: I
+[:    Am   Bm7  | Am     Bm7    :| Am          ]
+
+P: A
+[: !S B7   E7   | Am             | Dm9   G#dim | C6 F7M |
+   1. Bdim Bb7M | Am A/G Am    / | B7          | E7    :|
+   2. Bdim Bb7M | Am A/G F#dim / | F7M / B7 E7 | Am A7  ]
+
+P: B
+[: Dm9          | G#dim          | C6          | F#dim  |
+   Bb7M         | Bdim   E7      | Am          |1. A   :|
+                                                2. Am   ] !S

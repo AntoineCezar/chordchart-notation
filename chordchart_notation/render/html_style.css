@@ -1,0 +1,81 @@
+body: {
+    width: 100%;
+}
+
+.chordchart {
+    width: 60rem;
+    margin: auto;
+    font-size: 24px;
+}
+
+.chordchart table {
+    width: 100%;
+}
+
+.chordchart .title {
+    text-align: center;
+    font-size: xx-large;
+}
+
+.chordchart .composer {
+    text-align: right;
+    font-size: x-large;
+}
+
+.chordchart .spacer {
+    height: 1rem;
+}
+
+.chordchart .barline {
+    font-size: xx-large;
+    text-align: right;
+}
+
+.chordchart :first-child.barline {
+    text-align: left;
+}
+
+.chordchart .chord {
+    padding: 0 .5rem;
+}
+
+.chordchart .chord-continuation {
+    font-size: xx-large;
+    padding: 0 .5rem;
+}
+
+.label {
+    color: white;
+    background-color: black;
+    text-align: center;
+    border: solid 1px black;
+}
+.segno {
+    font-size: xx-large;
+}
+.alternative {
+    font-size: medium;
+    border-top: solid .1rem black;
+    border-left: solid .3rem black;
+}
+.alternative > * {
+    padding: .3rem;
+}
+.label {
+    padding: .1rem;
+    font-size: .8rem;
+}
+
+@media print {
+    body: {
+        width: 21.0cm;
+        height: 29.7cm;
+        margin: 1cm;
+        font-size: 14px;
+    }
+
+    .chordchart {
+        width: 100%;
+    }
+}
+

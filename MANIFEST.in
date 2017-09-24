@@ -1,0 +1,2 @@
+include *.txt *.cfg *.rst
+recursive-include chordchart_notation *.html *.css
