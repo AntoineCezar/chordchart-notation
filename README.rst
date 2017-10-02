@@ -17,7 +17,7 @@ Quick Start
 
 To learn how to write your own chordcharts, you can either:
 
-    * look at provided exemples in the exemples directory
+    * look at provided exemples in the examples directory
     * try to understand the associated grammar (good luck)
 
 ================
