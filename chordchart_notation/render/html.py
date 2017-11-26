@@ -62,10 +62,7 @@ class PartBuilder:
         return self._lines[-1]
 
     def get_result(self):
-        if self._label:
-            result = f'<td><div class="label">{self._label}</div></td>'
-        else:
-            result = '<td></td>'
+        result = ''
 
         for line in self._lines:
             result += line.get_result()
@@ -73,7 +70,7 @@ class PartBuilder:
         return result
 
     def label(self, value):
-        self._label = value
+        self._last_line().label(value)
 
     def barline(self):
         self._barline = self._last_line().barline()
@@ -96,11 +93,15 @@ class PartLine:
 
     def __init__(self):
         self._elements = []
+        self._label = ''
 
     def get_result(self):
-        alt_line = ''
-        mark_line = ''
-        base_line = ''
+        mark_line = '<td></td>'
+        alt_line = '<td></td>'
+        if self._label:
+            base_line = f'<td class="label"><span>{self._label}</span></td>'
+        else:
+            base_line = '<td></td>'
 
         for element in self._elements:
             alt_line += element.get_alt_line()
@@ -111,10 +112,12 @@ class PartLine:
             f'<tr class="marks">{mark_line}</tr>',
             f'<tr class="alts">{alt_line}</tr>',
             f'<tr class="base">{base_line}</tr>'
-            f'<tr class="spacer"></tr>'
         ]
 
         return '\n'.join(lines)
+
+    def label(self, value):
+        self._label = value
 
     def barline(self):
         builder = BarlineBuilder()
@@ -153,28 +156,83 @@ class BarlineBuilder:
         return ''
 
     def build_initial_barline(self):
-        self._symbol = '𝄃'
+        # 𝄃
+        self._symbol = '''
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 100 300">
+                <rect x="41" width="18" height="300"/>
+                <rect x="69" width="3" height="300"/>
+            </svg>
+        '''
 
     def build_final_barline(self):
-        self._symbol = '𝄂'
+        # 𝄂
+        self._symbol = '''
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 100 300">
+                <rect x="28" width="3" height="300"/>
+                <rect x="41" width="18" height="300"/>
+            </svg>
+        '''
 
     def build_initial_repeat_barline(self):
-        self._symbol = '𝄆'
+        # 𝄆
+        self._symbol = '''
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 100 300">
+                <rect x="41" width="18" height="300"/>
+                <rect x="69" width="3" height="300"/>
+                <circle cx="90" cy="120" r="9"/>
+                <circle cx="90" cy="180" r="9"/>
+            </svg>
+        '''
 
     def build_final_repeat_barline(self):
-        self._symbol = '𝄇'
+        # 𝄇
+        self._symbol = '''
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 100 300">
+                <circle cx="10" cy="120" r="9"/>
+                <circle cx="10" cy="180" r="9"/>
+                <rect x="28" width="3" height="300"/>
+                <rect x="41" width="18" height="300"/>
+            </svg>
+        '''
 
     def build_single_barline(self):
-        self._symbol = '𝄀'
+        # 𝄀
+        self._symbol = '''
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 100 300">
+                <rect x="47" width="6" height="300"/>
+            </svg>
+        '''
 
     def build_double_barline(self):
-        self._symbol = '𝄁'
+        # 𝄁
+        self._symbol = '''
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 100 300">
+                <rect x="41" width="6" height="300"/>
+                <rect x="53" width="6" height="300"/>
+            </svg>
+        '''
 
     def build_repeat_barline(self):
-        self._symbol = '𝄆'
+        # 𝄆
+        self._symbol = '''
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 100 300">
+                <rect x="41" width="18" height="300"/>
+                <rect x="69" width="3" height="300"/>
+                <circle cx="90" cy="120" r="9"/>
+                <circle cx="90" cy="180" r="9"/>
+            </svg>
+        '''
 
     def build_end_repeat_barline(self):
-        self._symbol = '𝄇'
+        # 𝄇
+        self._symbol = '''
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 100 300">
+                <circle cx="10" cy="120" r="9"/>
+                <circle cx="10" cy="180" r="9"/>
+                <rect x="28" width="3" height="300"/>
+                <rect x="41" width="18" height="300"/>
+            </svg>
+        '''
 
     def build_mark(self):
         self._mark = MarkBuilder()
@@ -271,14 +329,17 @@ class AlternativeBuilder:
         self._measure_length += 1
 
     def get_result(self, span):
-        span = (self._measure_length * span) + 1
+        span = (self._measure_length * span)
 
         if self._value:
-            return (f'<td colspan="{span}" class="alternative">'
+            return (f'<td class="alternative">'
                     f'<span>{self._value}</span>'
-                    '</td>')
+                    '</td>'
+                    f'<td colspan="{span}">'
+                    '</td>'
+                    )
 
-        return f'<td colspan="{span}"></td>'
+        return f'<td colspan="{span + 1}"></td>'
 
     def build_number(self, value):
         self._value = f'{value}.'

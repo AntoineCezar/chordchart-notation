@@ -44,6 +44,7 @@ class PartDirector(Visitor):
         with self._builder.measure() as builder:
             visitor = MeasureDirector(builder)
             node.accept(visitor)
+
         self._measure_count += 1
 
 

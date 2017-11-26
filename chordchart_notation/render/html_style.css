@@ -6,33 +6,41 @@ body: {
     width: 60rem;
     margin: auto;
     font-size: 24px;
+    font-family: sans;
 }
 
 .chordchart table {
     width: 100%;
+    border-collapse: collapse;
+}
+.chordchart td {
+    padding: 0 0 .2rem 0;
+}
+
+.chordchart .header {
 }
 
 .chordchart .title {
     text-align: center;
-    font-size: xx-large;
+    font-size: x-large;
 }
 
 .chordchart .composer {
     text-align: right;
-    font-size: x-large;
-}
-
-.chordchart .spacer {
-    height: 1rem;
+    font-size: large;
 }
 
 .chordchart .barline {
-    font-size: xx-large;
-    text-align: right;
+    text-align: center;
+}
+.chordchart .barline svg {
+    vertical-align: middle;
+    width: 24px;
 }
 
-.chordchart :first-child.barline {
+.chordchart :nth-child(2).barline {
     text-align: left;
+    text-align: center;
 }
 
 .chordchart .chord {
@@ -45,43 +53,50 @@ body: {
 }
 
 .label {
-    color: white;
-    background-color: black;
-    text-align: center;
-    border: solid 1px black;
+    vertical-align: top;
+    text-align: right;
+    padding: 0;
+}
+.label span {
+    font-size: large;
+    font-weight: bold;
 }
 .mark {
-    text-align: left;
+    text-align: center;
 }
-:last-child.mark {
-    text-align: right;
+:first-child.mark {
+    text-align: center;
 }
 .segno {
     font-size: xx-large;
 }
 .alternative {
     font-size: medium;
-    border-top: solid .1rem black;
-    border-left: solid .3rem black;
+    text-align: right;
 }
 .alternative > * {
     padding: .3rem;
 }
-.label {
-    padding: .1rem;
-    font-size: .8rem;
+
+@page {
+    margin-top: 1cm;
+    margin-bottom: 1cm;
+    margin-left: 1cm;
+    margin-right: 1cm;
 }
 
 @media print {
-    body: {
-        width: 21.0cm;
-        height: 29.7cm;
-        margin: 1cm;
-        font-size: 14px;
-    }
-
     .chordchart {
         width: 100%;
+    }
+    .head {
+        position: relative;
+    }
+    .title {
+        float: left;
+    }
+    .composer {
+        float: right;
     }
 }
 

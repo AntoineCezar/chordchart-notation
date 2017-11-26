@@ -8,7 +8,7 @@ P: A
                                    2. Fm C7 ]
 
 P: B
-[     Fm  F | Bbm Bbm7 | Ghdim C |    Fm   :]
+[:    Fm  F | Bbm Bbm7 | Ghdim C |    Fm   :]
 
 P: C
 [:    Bbm   | Bbm C    | Fm    C |    Fm F :|
