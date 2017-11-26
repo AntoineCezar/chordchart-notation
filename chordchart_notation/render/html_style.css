@@ -50,6 +50,12 @@ body: {
     text-align: center;
     border: solid 1px black;
 }
+.mark {
+    text-align: left;
+}
+:last-child.mark {
+    text-align: right;
+}
 .segno {
     font-size: xx-large;
 }

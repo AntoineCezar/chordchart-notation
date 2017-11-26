@@ -192,7 +192,7 @@ class Spacer:
 class MarkBuilder:
 
     def __init__(self):
-        self._class = None
+        self._classes = ['mark']
 
     def get_result(self, span=None):
         result = '<td'
@@ -200,8 +200,8 @@ class MarkBuilder:
         if span:
             result += f' colspan="{span}"'
 
-        if self._class:
-            result += f' class="{self._class}"'
+        if self._classes:
+            result += f' class="{" ".join(self._classes)}"'
 
         result += '>'
         result += self._value
@@ -210,7 +210,7 @@ class MarkBuilder:
         return result
 
     def build_segno_symbol(self):
-        self._class = 'segno'
+        self._classes.append('segno')
         self._value = '𝄋'
 
 
