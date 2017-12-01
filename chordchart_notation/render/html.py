@@ -133,9 +133,8 @@ class PartLine:
 class BarlineBuilder:
 
     def __init__(self):
-        self._mark = Spacer()
+        self._mark = MarkBuilder()
         self._symbol = None
-        self._has_mark = False
 
     def __enter__(self):
         return self
@@ -239,18 +238,11 @@ class BarlineBuilder:
         return self._mark
 
 
-class Spacer:
-
-    def get_result(self, span=None):
-        if span:
-            return f'<td colspan="{span}"></td>'
-        return f'<td></td>'
-
-
 class MarkBuilder:
 
     def __init__(self):
         self._classes = ['mark']
+        self._value = ''
 
     def get_result(self, span=None):
         result = '<td'
@@ -258,7 +250,7 @@ class MarkBuilder:
         if span:
             result += f' colspan="{span}"'
 
-        if self._classes:
+        if self._value and self._classes:
             result += f' class="{" ".join(self._classes)}"'
 
         result += '>'
@@ -308,9 +300,7 @@ class MeasureBuilder:
         return builder
 
     def alternative(self):
-        builder = AlternativeBuilder()
-        self._alt = builder
-        return builder
+        return self._alt
 
 
 class AlternativeBuilder:
@@ -348,8 +338,7 @@ class AlternativeBuilder:
 class ChordContinuationBuilder:
 
     def __init__(self):
-        self._mark = Spacer()
-        self._has_mark = False
+        self._mark = MarkBuilder()
 
     def __enter__(self):
         return self
@@ -370,7 +359,7 @@ class ChordContinuationBuilder:
 class ChordBuilder:
 
     def __init__(self):
-        self._mark = Spacer()
+        self._mark = MarkBuilder()
         self._kind = ChordKindBuilder()
         self._bass = ChordBassBuilder()
 
