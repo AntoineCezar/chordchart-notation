@@ -96,12 +96,13 @@ class PartLine:
         self._label = ''
 
     def get_result(self):
-        mark_line = '<td></td>'
-        alt_line = '<td></td>'
+        label = ''
+        mark_line = ''
+        alt_line = ''
+        base_line = ''
+
         if self._label:
-            base_line = f'<td class="label"><span>{self._label}</span></td>'
-        else:
-            base_line = '<td></td>'
+            label = f'<tr><td class="label"><span>{self._label}</span></td></tr>'
 
         for element in self._elements:
             alt_line += element.get_alt_line()
@@ -109,6 +110,7 @@ class PartLine:
             base_line += element.get_base_line()
 
         lines = [
+            label,
             f'<tr class="marks">{mark_line}</tr>',
             f'<tr class="alts">{alt_line}</tr>',
             f'<tr class="base">{base_line}</tr>'
@@ -121,11 +123,12 @@ class PartLine:
 
     def barline(self):
         builder = BarlineBuilder()
+        self._previous_barline = builder
         self._elements.append(builder)
         return builder
 
     def measure(self):
-        builder = MeasureBuilder()
+        builder = MeasureBuilder(self._previous_barline)
         self._elements.append(builder)
         return builder
 
@@ -135,6 +138,8 @@ class BarlineBuilder:
     def __init__(self):
         self._mark = MarkBuilder()
         self._symbol = None
+        self._alt = AlternativeBuilder()
+        self._has_alt = False
 
     def __enter__(self):
         return self
@@ -143,16 +148,23 @@ class BarlineBuilder:
         pass
 
     def get_alt_line(self):
+        if self._has_alt:
+            return self._alt.get_result(1)
         return ''
 
     def get_mark_line(self):
-        return self._mark.get_result()
+        rowspan = None if self._has_alt else 2
+        return self._mark.get_result(rowspan=rowspan)
 
     def get_base_line(self):
         if self._symbol:
             return f'<td class="barline">{self._symbol}</td>'
 
         return ''
+
+    def alternative(self):
+        self._has_alt = True
+        return self._alt
 
     def build_initial_barline(self):
         # 𝄃
@@ -244,11 +256,14 @@ class MarkBuilder:
         self._classes = ['mark']
         self._value = ''
 
-    def get_result(self, span=None):
+    def get_result(self, span=None, rowspan=None):
         result = '<td'
 
         if span:
             result += f' colspan="{span}"'
+
+        if rowspan:
+            result += f' rowspan="{rowspan}"'
 
         if self._value and self._classes:
             result += f' class="{" ".join(self._classes)}"'
@@ -266,9 +281,10 @@ class MarkBuilder:
 
 class MeasureBuilder:
 
-    def __init__(self):
+    def __init__(self, previous_barline):
+        self._previous_barline = previous_barline
         self._elements = []
-        self._alt = AlternativeBuilder()
+        self._alt = None
 
     def __enter__(self):
         return self
@@ -277,10 +293,11 @@ class MeasureBuilder:
         self._span = int(4 / len(self._elements))
 
     def get_alt_line(self):
-        return self._alt.get_result(self._span)
+        return ''
 
     def get_mark_line(self):
-        return '\n'.join([element.get_mark_line(self._span)
+        rowspan = None if self._alt else 2
+        return '\n'.join([element.get_mark_line(self._span, rowspan)
                           for element in self._elements])
 
     def get_base_line(self):
@@ -288,18 +305,21 @@ class MeasureBuilder:
                           for element in self._elements])
 
     def chord(self):
-        self._alt.extend()
+        if self._alt:
+            self._alt.extend()
         builder = ChordBuilder()
         self._elements.append(builder)
         return builder
 
     def chord_continuation(self):
-        self._alt.extend()
+        if self._alt:
+            self._alt.extend()
         builder = ChordContinuationBuilder()
         self._elements.append(builder)
         return builder
 
     def alternative(self):
+        self._alt = self._previous_barline.alternative()
         return self._alt
 
 
@@ -319,20 +339,25 @@ class AlternativeBuilder:
         self._measure_length += 1
 
     def get_result(self, span):
-        span = (self._measure_length * span)
+        span = int(4 / self._measure_length)
 
-        if self._value:
-            return (f'<td class="alternative">'
-                    f'<span>{self._value}</span>'
-                    '</td>'
-                    f'<td colspan="{span}">'
-                    '</td>'
-                    )
+        number = f'<span class="number">{self._value}</span>' if self._value \
+            else ''
 
-        return f'<td colspan="{span + 1}"></td>'
+        result = f'<td class="alternative">{number}</td>'
+        result += f'<td colspan="{span}"></td>' * self._measure_length
+
+        return result
 
     def build_number(self, value):
         self._value = f'{value}.'
+
+
+class AlternativeTailBuilder:
+
+    def __init__(self):
+        self._measure_length = 0
+        self._active = False
 
 
 class ChordContinuationBuilder:
@@ -346,12 +371,13 @@ class ChordContinuationBuilder:
     def __exit__(self, *args, **kwargs):
         pass
 
-    def get_mark_line(self, span):
-        return self._mark.get_result(span)
+    def get_mark_line(self, span, rowspan):
+        return self._mark.get_result(span, rowspan)
 
     def get_base_line(self, span):
-        result = f'<td class="chord-continuation" colspan="{span}">'
-        result += '𝄍</td>'
+        colspan = f' colspan="{span}"' if span else ''
+        result = f'<td class="chord-continuation"{colspan}>'
+        result += '/</td>'
 
         return result
 
@@ -369,11 +395,12 @@ class ChordBuilder:
     def __exit__(self, *args, **kwargs):
         pass
 
-    def get_mark_line(self, span):
-        return self._mark.get_result(span)
+    def get_mark_line(self, span, rowspan):
+        return self._mark.get_result(span, rowspan)
 
     def get_base_line(self, span):
-        result = f'<td class="chord" colspan="{span}">'
+        colspan = f' colspan="{span}"' if span else ''
+        result = f'<td class="chord"{colspan}>'
         result += self._root.get_result()
         result += self._kind.get_result()
         result += self._bass.get_result()

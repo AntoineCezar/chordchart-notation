@@ -3,10 +3,10 @@ body: {
 }
 
 .chordchart {
-    width: 60rem;
     margin: auto;
-    font-size: 24px;
     font-family: sans;
+    font-size: 24px;
+    width: 60rem;
 }
 
 .chordchart table {
@@ -14,7 +14,7 @@ body: {
     border-collapse: collapse;
 }
 .chordchart td {
-    padding: 0 0 .2rem 0;
+    padding: 0 0 .3rem 0;
 }
 
 .chordchart .header {
@@ -22,20 +22,21 @@ body: {
 
 .chordchart .title {
     text-align: center;
-    font-size: x-large;
+    font-size: 1.5rem;
 }
 
 .chordchart .composer {
     text-align: right;
-    font-size: large;
+    font-size: 1rem;
 }
 
 .chordchart .barline {
     text-align: center;
+    width: 24px; /* does not work in rem */
 }
 .chordchart .barline svg {
     vertical-align: middle;
-    width: 24px;
+    width: 24px; /* does not work in rem */
 }
 
 .chordchart :nth-child(2).barline {
@@ -48,17 +49,18 @@ body: {
 }
 
 .chordchart .chord-continuation {
-    font-size: xx-large;
+    font-size: 1.5rem;
+    font-style: italic;
+    font-weight: bold;
     padding: 0 .5rem;
 }
 
-.label {
-    vertical-align: top;
-    text-align: right;
-    padding: 0;
+.chordchart .label {
+    width: 1rem;
+    text-align: center;
 }
 .label span {
-    font-size: large;
+    font-size: 1rem;
     font-weight: bold;
 }
 .mark {
@@ -68,14 +70,19 @@ body: {
     text-align: center;
 }
 .segno {
-    font-size: xx-large;
+    font-size: 2rem;
 }
 .alternative {
-    font-size: medium;
+    font-size: .5rem;
     text-align: right;
 }
-.alternative > * {
-    padding: .3rem;
+.alternative .number {
+    padding: .3em;
+    position: relative;
+    left: .5rem;
+    top: 0;
+    border-left: solid .2rem;
+    border-top: solid 1px;
 }
 
 @page {

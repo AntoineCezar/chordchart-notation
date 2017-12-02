@@ -9,10 +9,10 @@
 }
 
 .chordchart {
-    width: 60rem;
     margin: auto;
-    font-size: 24px;
     font-family: sans;
+    font-size: 24px;
+    width: 60rem;
 }
 
 .chordchart table {
@@ -20,7 +20,7 @@
     border-collapse: collapse;
 }
 .chordchart td {
-    padding: 0 0 .2rem 0;
+    padding: 0 0 .3rem 0;
 }
 
 .chordchart .header {
@@ -28,20 +28,21 @@
 
 .chordchart .title {
     text-align: center;
-    font-size: x-large;
+    font-size: 1.5rem;
 }
 
 .chordchart .composer {
     text-align: right;
-    font-size: large;
+    font-size: 1rem;
 }
 
 .chordchart .barline {
     text-align: center;
+    width: 24px; /* does not work in rem */
 }
 .chordchart .barline svg {
     vertical-align: middle;
-    width: 24px;
+    width: 24px; /* does not work in rem */
 }
 
 .chordchart :nth-child(2).barline {
@@ -54,17 +55,18 @@
 }
 
 .chordchart .chord-continuation {
-    font-size: xx-large;
+    font-size: 1.5rem;
+    font-style: italic;
+    font-weight: bold;
     padding: 0 .5rem;
 }
 
-.label {
-    vertical-align: top;
-    text-align: right;
-    padding: 0;
+.chordchart .label {
+    width: 1rem;
+    text-align: center;
 }
 .label span {
-    font-size: large;
+    font-size: 1rem;
     font-weight: bold;
 }
 .mark {
@@ -74,14 +76,19 @@
     text-align: center;
 }
 .segno {
-    font-size: xx-large;
+    font-size: 2rem;
 }
 .alternative {
-    font-size: medium;
+    font-size: .5rem;
     text-align: right;
 }
-.alternative > * {
-    padding: .3rem;
+.alternative .number {
+    padding: .3em;
+    position: relative;
+    left: .5rem;
+    top: 0;
+    border-left: solid .2rem;
+    border-top: solid 1px;
 }
 
 @page {
@@ -115,11 +122,12 @@
                 <h2 class="composer">Les Escros</h2>
             </div>
             <table class="chordchart">
-                <tr class="marks"><td></td><td></td><td colspan="2"></td>
-<td colspan="2"></td><td></td><td colspan="2"></td>
-<td colspan="2"></td><td></td><td colspan="4"></td><td></td></tr>
-<tr class="alts"><td></td><td colspan="5"></td><td colspan="5"></td><td colspan="5"></td></tr>
-<tr class="base"><td class="label"><span>I</span></td><td class="barline">
+                <tr><td class="label"><span>I</span></td></tr>
+<tr class="marks"><td rowspan="2"></td><td colspan="2" rowspan="2"></td>
+<td colspan="2" rowspan="2"></td><td rowspan="2"></td><td colspan="2" rowspan="2"></td>
+<td colspan="2" rowspan="2"></td><td rowspan="2"></td><td colspan="4" rowspan="2"></td><td rowspan="2"></td></tr>
+<tr class="alts"></tr>
+<tr class="base"><td class="barline">
             <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 100 300">
                 <rect x="41" width="18" height="300"/>
                 <rect x="69" width="3" height="300"/>
@@ -145,12 +153,13 @@
                 <rect x="41" width="18" height="300"/>
             </svg>
         </td></tr>
-<tr class="marks"><td></td><td class="mark segno">𝄋</td><td colspan="2"></td>
-<td colspan="2"></td><td></td><td colspan="4"></td><td></td><td colspan="2"></td>
-<td colspan="2"></td><td></td><td colspan="2"></td>
-<td colspan="2"></td><td></td></tr>
-<tr class="alts"><td></td><td colspan="5"></td><td colspan="5"></td><td colspan="5"></td><td colspan="5"></td></tr>
-<tr class="base"><td class="label"><span>A</span></td><td class="barline">
+<tr><td class="label"><span>A</span></td></tr>
+<tr class="marks"><td rowspan="2" class="mark segno">𝄋</td><td colspan="2" rowspan="2"></td>
+<td colspan="2" rowspan="2"></td><td rowspan="2"></td><td colspan="4" rowspan="2"></td><td rowspan="2"></td><td colspan="2" rowspan="2"></td>
+<td colspan="2" rowspan="2"></td><td rowspan="2"></td><td colspan="2" rowspan="2"></td>
+<td colspan="2" rowspan="2"></td><td rowspan="2"></td></tr>
+<tr class="alts"></tr>
+<tr class="base"><td class="barline">
             <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 100 300">
                 <rect x="41" width="18" height="300"/>
                 <rect x="69" width="3" height="300"/>
@@ -176,13 +185,14 @@
             <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 100 300">
                 <rect x="47" width="6" height="300"/>
             </svg>
-        </td></tr><tr class="marks"><td></td><td></td><td colspan="2"></td>
-<td colspan="2"></td><td></td><td colspan="1"></td>
-<td colspan="1"></td>
-<td colspan="1"></td>
-<td colspan="1"></td><td></td><td colspan="4"></td><td></td><td colspan="4"></td><td></td></tr>
-<tr class="alts"><td></td><td class="alternative"><span>1.</span></td><td colspan="4"></td><td colspan="5"></td><td colspan="5"></td><td colspan="5"></td></tr>
-<tr class="base"><td></td><td class="barline">
+        </td></tr>
+<tr class="marks"><td></td><td colspan="2"></td>
+<td colspan="2"></td><td rowspan="2"></td><td colspan="1" rowspan="2"></td>
+<td colspan="1" rowspan="2"></td>
+<td colspan="1" rowspan="2"></td>
+<td colspan="1" rowspan="2"></td><td rowspan="2"></td><td colspan="4" rowspan="2"></td><td rowspan="2"></td><td colspan="4" rowspan="2"></td><td rowspan="2"></td></tr>
+<tr class="alts"><td class="alternative"><span class="number">1.</span></td><td colspan="2"></td><td colspan="2"></td></tr>
+<tr class="base"><td class="barline">
             <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 100 300">
                 <rect x="47" width="6" height="300"/>
             </svg>
@@ -194,7 +204,7 @@
         </td><td class="chord" colspan="1">A<sup>m</sup></td>
 <td class="chord" colspan="1">A<sub>/G</sub></td>
 <td class="chord" colspan="1">A<sup>m</sup></td>
-<td class="chord-continuation" colspan="1">𝄍</td><td class="barline">
+<td class="chord-continuation" colspan="1">/</td><td class="barline">
             <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 100 300">
                 <rect x="47" width="6" height="300"/>
             </svg>
@@ -209,17 +219,18 @@
                 <rect x="28" width="3" height="300"/>
                 <rect x="41" width="18" height="300"/>
             </svg>
-        </td></tr><tr class="marks"><td></td><td></td><td colspan="2"></td>
-<td colspan="2"></td><td></td><td colspan="1"></td>
-<td colspan="1"></td>
-<td colspan="1"></td>
-<td colspan="1"></td><td></td><td colspan="1"></td>
-<td colspan="1"></td>
-<td colspan="1"></td>
-<td colspan="1"></td><td></td><td colspan="2"></td>
-<td colspan="2"></td><td></td></tr>
-<tr class="alts"><td></td><td class="alternative"><span>2.</span></td><td colspan="4"></td><td colspan="5"></td><td colspan="5"></td><td colspan="5"></td></tr>
-<tr class="base"><td></td><td class="barline">
+        </td></tr>
+<tr class="marks"><td></td><td colspan="2"></td>
+<td colspan="2"></td><td rowspan="2"></td><td colspan="1" rowspan="2"></td>
+<td colspan="1" rowspan="2"></td>
+<td colspan="1" rowspan="2"></td>
+<td colspan="1" rowspan="2"></td><td rowspan="2"></td><td colspan="1" rowspan="2"></td>
+<td colspan="1" rowspan="2"></td>
+<td colspan="1" rowspan="2"></td>
+<td colspan="1" rowspan="2"></td><td rowspan="2"></td><td colspan="2" rowspan="2"></td>
+<td colspan="2" rowspan="2"></td><td rowspan="2"></td></tr>
+<tr class="alts"><td class="alternative"><span class="number">2.</span></td><td colspan="2"></td><td colspan="2"></td></tr>
+<tr class="base"><td class="barline">
             <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 100 300">
                 <rect x="47" width="6" height="300"/>
             </svg>
@@ -231,12 +242,12 @@
         </td><td class="chord" colspan="1">A<sup>m</sup></td>
 <td class="chord" colspan="1">A<sub>/G</sub></td>
 <td class="chord" colspan="1">F<sup>#</sup>°</td>
-<td class="chord-continuation" colspan="1">𝄍</td><td class="barline">
+<td class="chord-continuation" colspan="1">/</td><td class="barline">
             <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 100 300">
                 <rect x="47" width="6" height="300"/>
             </svg>
         </td><td class="chord" colspan="1">F<sup>M7</sup></td>
-<td class="chord-continuation" colspan="1">𝄍</td>
+<td class="chord-continuation" colspan="1">/</td>
 <td class="chord" colspan="1">B<sup>7</sup></td>
 <td class="chord" colspan="1">E<sup>7</sup></td><td class="barline">
             <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 100 300">
@@ -249,9 +260,10 @@
                 <rect x="41" width="18" height="300"/>
             </svg>
         </td></tr>
-<tr class="marks"><td></td><td></td><td colspan="4"></td><td></td><td colspan="4"></td><td></td><td colspan="4"></td><td></td><td colspan="4"></td><td></td></tr>
-<tr class="alts"><td></td><td colspan="5"></td><td colspan="5"></td><td colspan="5"></td><td colspan="5"></td></tr>
-<tr class="base"><td class="label"><span>B</span></td><td class="barline">
+<tr><td class="label"><span>B</span></td></tr>
+<tr class="marks"><td rowspan="2"></td><td colspan="4" rowspan="2"></td><td rowspan="2"></td><td colspan="4" rowspan="2"></td><td rowspan="2"></td><td colspan="4" rowspan="2"></td><td rowspan="2"></td><td colspan="4" rowspan="2"></td><td rowspan="2"></td></tr>
+<tr class="alts"></tr>
+<tr class="base"><td class="barline">
             <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 100 300">
                 <rect x="41" width="18" height="300"/>
                 <rect x="69" width="3" height="300"/>
@@ -274,10 +286,11 @@
             <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 100 300">
                 <rect x="47" width="6" height="300"/>
             </svg>
-        </td></tr><tr class="marks"><td></td><td></td><td colspan="4"></td><td></td><td colspan="2"></td>
-<td colspan="2"></td><td></td><td colspan="4"></td><td></td><td colspan="4"></td><td></td></tr>
-<tr class="alts"><td></td><td colspan="5"></td><td colspan="5"></td><td colspan="5"></td><td class="alternative"><span>1.</span></td><td colspan="4"></td></tr>
-<tr class="base"><td></td><td class="barline">
+        </td></tr>
+<tr class="marks"><td rowspan="2"></td><td colspan="4" rowspan="2"></td><td rowspan="2"></td><td colspan="2" rowspan="2"></td>
+<td colspan="2" rowspan="2"></td><td rowspan="2"></td><td colspan="4" rowspan="2"></td><td></td><td colspan="4"></td><td rowspan="2"></td></tr>
+<tr class="alts"><td class="alternative"><span class="number">1.</span></td><td colspan="4"></td></tr>
+<tr class="base"><td class="barline">
             <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 100 300">
                 <rect x="47" width="6" height="300"/>
             </svg>
@@ -301,9 +314,10 @@
                 <rect x="28" width="3" height="300"/>
                 <rect x="41" width="18" height="300"/>
             </svg>
-        </td></tr><tr class="marks"><td></td><td></td><td colspan="4"></td><td class="mark segno">𝄋</td></tr>
-<tr class="alts"><td></td><td class="alternative"><span>2.</span></td><td colspan="4"></td></tr>
-<tr class="base"><td></td><td class="barline">
+        </td></tr>
+<tr class="marks"><td></td><td colspan="4"></td><td rowspan="2" class="mark segno">𝄋</td></tr>
+<tr class="alts"><td class="alternative"><span class="number">2.</span></td><td colspan="4"></td></tr>
+<tr class="base"><td class="barline">
             <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 100 300">
                 <rect x="47" width="6" height="300"/>
             </svg>
